@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Multiplier',
         theme: ThemeData(
-          primarySwatch: Colors.green,
+          primarySwatch: Colors.indigo,
         ),
         home: const HomePage());
   }
