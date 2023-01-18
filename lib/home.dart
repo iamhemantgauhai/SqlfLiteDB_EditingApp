@@ -52,6 +52,7 @@ class _HomePageState extends State<HomePage> {
                 height: 10,
               ),
               TextField(
+                keyboardType: TextInputType.number,
                 controller: _numberController,
                 decoration: const InputDecoration(hintText: 'Number'),
               ),
@@ -134,8 +135,8 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: Container(
         padding: const EdgeInsets.only(right: 150,left:150),
         child: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () => _showForm(null),
+            child: const Icon(Icons.add),
+            onPressed: () => _showForm(null),
         ),
       ),
     );
