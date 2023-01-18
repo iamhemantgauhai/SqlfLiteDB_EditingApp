@@ -8,7 +8,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> _listData = [];
   bool _isLoading = true;
-  void _refreshJournals() async {
+  void _refreshData() async {
     final data = await SQLHelper.getItems();
     setState(() {
       _listData = data;
@@ -18,16 +18,16 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _refreshJournals();
+    _refreshData();
   }
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _numberController = TextEditingController();
   void _showForm(int? id) async {
     if (id != null) {
-      final existingJournal =
+      final existingData =
       _listData.firstWhere((element) => element['id'] == id);
-      _nameController.text = existingJournal['title'];
-      _numberController.text = existingJournal['description'];
+      _nameController.text = existingData['name'];
+      _numberController.text = existingData['number'];
     }
     showModalBottomSheet(
         context: context,
@@ -79,19 +79,19 @@ class _HomePageState extends State<HomePage> {
   Future<void> _addItem() async {
     await SQLHelper.createItem(
         _nameController.text, _numberController.text);
-    _refreshJournals();
+    _refreshData();
   }
   Future<void> _updateItem(int id) async {
     await SQLHelper.updateItem(
         id, _nameController.text, _numberController.text);
-    _refreshJournals();
+    _refreshData();
   }
   void _deleteItem(int id) async {
     await SQLHelper.deleteItem(id);
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text('Deleted!'),
     ));
-    _refreshJournals();
+    _refreshData();
   }
   @override
   Widget build(BuildContext context) {
@@ -109,8 +109,8 @@ class _HomePageState extends State<HomePage> {
           color: Colors.orange[200],
           margin: const EdgeInsets.all(15),
           child: ListTile(
-              title: Text(_listData[index]['title']),
-              subtitle: Text(_listData[index]['description']),
+              title: Text(_listData[index]['name']),
+              subtitle: Text(_listData[index]['number']),
               trailing: SizedBox(
                 width: 100,
                 child: Row(
